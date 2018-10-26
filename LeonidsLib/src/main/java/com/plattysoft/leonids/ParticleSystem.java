@@ -7,6 +7,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -254,6 +255,10 @@ public class ParticleSystem {
 	 */
 	public static void setFPS(double fps) {
 		TIMER_TASK_INTERVAL = Math.round(1000 / fps);
+	}
+
+	public ParticleField getDrawingView(){
+		return mDrawingView;
 	}
 
 	/**
