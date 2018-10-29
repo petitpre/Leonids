@@ -513,7 +513,9 @@ public class ParticleSystem {
         mDrawingView = new ParticleField(mParentView.getContext());
         mParentView.addView(mDrawingView);
         mEmittingTime = -1; // Meaning infinite
-        mDrawingView.setParticles(new ArrayList<Particle>(mActiveParticles));
+        synchronized (mActiveParticles) {
+            mDrawingView.setParticles(new ArrayList<Particle>(mActiveParticles));
+        }
         updateParticlesBeforeStartTime(particlesPerSecond);
         mTimer = new Timer();
         mTimer.schedule(mTimerTask, 0, TIMER_TASK_INTERVAL);
@@ -538,8 +540,9 @@ public class ParticleSystem {
         // Add a full size view to the parent view
         mDrawingView = new ParticleField(mParentView.getContext());
         mParentView.addView(mDrawingView);
-
-        mDrawingView.setParticles(new ArrayList<Particle>(mActiveParticles));
+        synchronized (mActiveParticles) {
+            mDrawingView.setParticles(new ArrayList<Particle>(mActiveParticles));
+        }
         updateParticlesBeforeStartTime(particlesPerSecond);
         mEmittingTime = emittingTime;
         startAnimator(new LinearInterpolator(), emittingTime + mTimeToLive);
