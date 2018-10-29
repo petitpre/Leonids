@@ -15,7 +15,6 @@ public class ParticleField extends View {
         boolean onTouch(Particle particle, MotionEvent event);
     }
 
-
     private ArrayList<Particle> mParticles;
     private ParticleClickListener mParticleClickListener;
 
@@ -39,17 +38,14 @@ public class ParticleField extends View {
         this.mParticleClickListener = particleClickListener;
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mParticleClickListener != null  && event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (mParticleClickListener != null && event.getAction() == MotionEvent.ACTION_DOWN) {
             Rect rect = new Rect();
-            synchronized (mParticles) {
-                for (Particle particle : mParticles) {
-                    rect = particle.getDimension(rect);
-                    if (rect.contains((int) event.getX(), (int) event.getY())) {
-                        return mParticleClickListener.onTouch(particle, event);
-                    }
+            for (Particle particle : mParticles) {
+                rect = particle.getDimension(rect);
+                if (rect.contains((int) event.getX(), (int) event.getY())) {
+                    return mParticleClickListener.onTouch(particle, event);
                 }
             }
         }
@@ -60,10 +56,8 @@ public class ParticleField extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // Draw all the particles
-        synchronized (mParticles) {
-            for (Particle particle : mParticles) {
-                particle.draw(canvas);
-            }
+        for (Particle particle : mParticles) {
+            particle.draw(canvas);
         }
     }
 }
