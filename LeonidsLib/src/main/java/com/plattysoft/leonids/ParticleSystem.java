@@ -713,9 +713,13 @@ public class ParticleSystem {
                     mParticles.add(p);
                 }
             }
+            if (mDrawingView != null) {
+                mDrawingView.setParticles(new ArrayList<Particle>(mActiveParticles));
+            }
         }
-        if (mDrawingView != null)
+        if (mDrawingView != null) {
             mDrawingView.postInvalidate();
+        }
     }
 
     private void cleanupAnimation() {
